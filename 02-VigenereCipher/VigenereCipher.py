@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 ALPHABET = ' .,;-!@()0123456789abcdefghijklmnopqrstuvwxyz'
 
 
@@ -40,6 +41,27 @@ def decrypt(cipher_text, key):
     return plain_text
 
 
+def frequency_analysis(text):
+    text = text.lower()
+
+    letter_frequency = {}
+
+    for letter in ALPHABET:
+        letter_frequency[letter] = 0
+
+    for letter in text:
+        if letter in ALPHABET:
+            letter_frequency[letter] += 1
+
+    return letter_frequency
+
+
+def plot_distribution(letter_frequency):
+    plt.bar(letter_frequency.keys(), letter_frequency.values())
+    plt.show()
+
+
+
 def read_from_file(filename):
     with open(filename, 'r') as file:
         return file.read().strip()
@@ -57,6 +79,7 @@ if __name__ == '__main__':
     cipher_text = encrypt(m, KEY)
     print("encrypted message: %s" % cipher_text)
     write_to_file('m.md', cipher_text)
+    plot_distribution(frequency_analysis(cipher_text))
 
     c = read_from_file('m.md')
     print(decrypt(c, KEY))

@@ -44,7 +44,7 @@ def random_sequence(text):
 
 
 def frequency_analysis(text):
-    text = text.upper()
+    text = text.lower()
 
     letter_frequency = {}
 
